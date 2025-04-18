@@ -60,17 +60,12 @@ int main() {
 
 
 
-    char function_name[256];
-	    
-
-    strcpy(function_name, "name\0");
-
     union Caster_to_function_pointer3 name_plugin_pointer;
     name_plugin_pointer.ptr = dlsym(handle, "name");
 
     const char *(*name_plugin)(void) = name_plugin_pointer.function_pointer;
     if (!name_plugin) {
-	fprintf(stderr, "Library couldn't execute %s.\n\tLibrary's name is greeting. Dlsym message: %s\n\tcheck plugins folder or rename library", function_name, dlerror());
+	fprintf(stderr, "Library couldn't execute name.\n\tLibrary's name is greeting. Dlsym message: %s\n\tcheck plugins folder or rename library", dlerror());
 
 	dlclose(handle);
 	destroy_config_table();
@@ -79,6 +74,7 @@ int main() {
 	    fprintf(stderr, "Couldn't shut down logger\n");
 	    return 1;
 	}
+	return 1;
     }
 
 
